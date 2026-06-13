@@ -1,0 +1,228 @@
+{
+  "symbol": "GLD",
+  "timestamp": "2026-06-13 03:44:39",
+  "current_price": 386.54,
+  "pcr_oi": 0.578,
+  "pcr_volume": 0.78,
+  "avg_call_iv_pct": 38.86,
+  "avg_put_iv_pct": 46.42,
+  "by_expiry": [
+    {
+      "expiry": "2026-06-12",
+      "calls_oi": 62365,
+      "puts_oi": 61491,
+      "pcr_oi": 0.986
+    },
+    {
+      "expiry": "2026-06-15",
+      "calls_oi": 17332,
+      "puts_oi": 15925,
+      "pcr_oi": 0.919
+    },
+    {
+      "expiry": "2026-06-17",
+      "calls_oi": 7128,
+      "puts_oi": 10227,
+      "pcr_oi": 1.435
+    },
+    {
+      "expiry": "2026-06-18",
+      "calls_oi": 632257,
+      "puts_oi": 338987,
+      "pcr_oi": 0.536
+    },
+    {
+      "expiry": "2026-06-22",
+      "calls_oi": 6085,
+      "puts_oi": 1848,
+      "pcr_oi": 0.304
+    },
+    {
+      "expiry": "2026-06-24",
+      "calls_oi": 1603,
+      "puts_oi": 1441,
+      "pcr_oi": 0.899
+    },
+    {
+      "expiry": "2026-06-26",
+      "calls_oi": 31955,
+      "puts_oi": 35661,
+      "pcr_oi": 1.116
+    },
+    {
+      "expiry": "2026-06-30",
+      "calls_oi": 66242,
+      "puts_oi": 43196,
+      "pcr_oi": 0.652
+    },
+    {
+      "expiry": "2026-07-02",
+      "calls_oi": 7832,
+      "puts_oi": 23309,
+      "pcr_oi": 2.976
+    },
+    {
+      "expiry": "2026-07-10",
+      "calls_oi": 10936,
+      "puts_oi": 28945,
+      "pcr_oi": 2.647
+    },
+    {
+      "expiry": "2026-07-17",
+      "calls_oi": 213367,
+      "puts_oi": 299858,
+      "pcr_oi": 1.405
+    },
+    {
+      "expiry": "2026-07-24",
+      "calls_oi": 14833,
+      "puts_oi": 11876,
+      "pcr_oi": 0.801
+    },
+    {
+      "expiry": "2026-07-31",
+      "calls_oi": 172,
+      "puts_oi": 83,
+      "pcr_oi": 0.483
+    },
+    {
+      "expiry": "2026-08-21",
+      "calls_oi": 114769,
+      "puts_oi": 76978,
+      "pcr_oi": 0.671
+    },
+    {
+      "expiry": "2026-09-18",
+      "calls_oi": 746257,
+      "puts_oi": 140397,
+      "pcr_oi": 0.188
+    },
+    {
+      "expiry": "2026-09-30",
+      "calls_oi": 82992,
+      "puts_oi": 39843,
+      "pcr_oi": 0.48
+    },
+    {
+      "expiry": "2026-10-16",
+      "calls_oi": 70200,
+      "puts_oi": 39599,
+      "pcr_oi": 0.564
+    },
+    {
+      "expiry": "2026-11-20",
+      "calls_oi": 106748,
+      "puts_oi": 53611,
+      "pcr_oi": 0.502
+    },
+    {
+      "expiry": "2026-12-18",
+      "calls_oi": 94164,
+      "puts_oi": 40970,
+      "pcr_oi": 0.435
+    },
+    {
+      "expiry": "2026-12-31",
+      "calls_oi": 47136,
+      "puts_oi": 22159,
+      "pcr_oi": 0.47
+    },
+    {
+      "expiry": "2027-01-15",
+      "calls_oi": 387091,
+      "puts_oi": 304267,
+      "pcr_oi": 0.786
+    },
+    {
+      "expiry": "2027-03-19",
+      "calls_oi": 89071,
+      "puts_oi": 34980,
+      "pcr_oi": 0.393
+    },
+    {
+      "expiry": "2027-03-31",
+      "calls_oi": 9701,
+      "puts_oi": 6659,
+      "pcr_oi": 0.686
+    },
+    {
+      "expiry": "2027-06-17",
+      "calls_oi": 95578,
+      "puts_oi": 40751,
+      "pcr_oi": 0.426
+    },
+    {
+      "expiry": "2027-09-17",
+      "calls_oi": 475,
+      "puts_oi": 895,
+      "pcr_oi": 1.884
+    },
+    {
+      "expiry": "2028-01-21",
+      "calls_oi": 112160,
+      "puts_oi": 64472,
+      "pcr_oi": 0.575
+    },
+    {
+      "expiry": "2028-06-16",
+      "calls_oi": 9123,
+      "puts_oi": 16099,
+      "pcr_oi": 1.765
+    },
+    {
+      "expiry": "2028-12-15",
+      "calls_oi": 19749,
+      "puts_oi": 11607,
+      "pcr_oi": 0.588
+    }
+  ],
+  "walls": {
+    "put_walls": [
+      {
+        "strike": 360.0,
+        "oi": 165233
+      },
+      {
+        "strike": 350.0,
+        "oi": 141577
+      },
+      {
+        "strike": 400.0,
+        "oi": 96700
+      },
+      {
+        "strike": 300.0,
+        "oi": 77600
+      },
+      {
+        "strike": 380.0,
+        "oi": 77133
+      }
+    ],
+    "call_walls": [
+      {
+        "strike": 550.0,
+        "oi": 161065
+      },
+      {
+        "strike": 500.0,
+        "oi": 155123
+      },
+      {
+        "strike": 450.0,
+        "oi": 116078
+      },
+      {
+        "strike": 555.0,
+        "oi": 107376
+      },
+      {
+        "strike": 600.0,
+        "oi": 92013
+      }
+    ],
+    "max_pain": 400.0
+  },
+  "source": "CBOE delayed quotes",
+  "options_count": 8366
+}

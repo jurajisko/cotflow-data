@@ -1,0 +1,186 @@
+{
+  "symbol": "DIA",
+  "timestamp": "2026-06-12 21:27:46",
+  "current_price": 513.28,
+  "pcr_oi": 1.763,
+  "pcr_volume": 0.915,
+  "avg_call_iv_pct": 26.52,
+  "avg_put_iv_pct": 45.32,
+  "by_expiry": [
+    {
+      "expiry": "2026-06-12",
+      "calls_oi": 25058,
+      "puts_oi": 19627,
+      "pcr_oi": 0.783
+    },
+    {
+      "expiry": "2026-06-18",
+      "calls_oi": 51044,
+      "puts_oi": 81673,
+      "pcr_oi": 1.6
+    },
+    {
+      "expiry": "2026-06-26",
+      "calls_oi": 8751,
+      "puts_oi": 8480,
+      "pcr_oi": 0.969
+    },
+    {
+      "expiry": "2026-06-30",
+      "calls_oi": 17701,
+      "puts_oi": 74893,
+      "pcr_oi": 4.231
+    },
+    {
+      "expiry": "2026-07-02",
+      "calls_oi": 3169,
+      "puts_oi": 3555,
+      "pcr_oi": 1.122
+    },
+    {
+      "expiry": "2026-07-10",
+      "calls_oi": 4756,
+      "puts_oi": 1943,
+      "pcr_oi": 0.409
+    },
+    {
+      "expiry": "2026-07-17",
+      "calls_oi": 13148,
+      "puts_oi": 15053,
+      "pcr_oi": 1.145
+    },
+    {
+      "expiry": "2026-07-24",
+      "calls_oi": 668,
+      "puts_oi": 2225,
+      "pcr_oi": 3.331
+    },
+    {
+      "expiry": "2026-07-31",
+      "calls_oi": 16,
+      "puts_oi": 44,
+      "pcr_oi": 2.75
+    },
+    {
+      "expiry": "2026-08-21",
+      "calls_oi": 3661,
+      "puts_oi": 5212,
+      "pcr_oi": 1.424
+    },
+    {
+      "expiry": "2026-09-18",
+      "calls_oi": 17170,
+      "puts_oi": 29751,
+      "pcr_oi": 1.733
+    },
+    {
+      "expiry": "2026-09-30",
+      "calls_oi": 9693,
+      "puts_oi": 53081,
+      "pcr_oi": 5.476
+    },
+    {
+      "expiry": "2026-12-18",
+      "calls_oi": 44184,
+      "puts_oi": 41164,
+      "pcr_oi": 0.932
+    },
+    {
+      "expiry": "2026-12-31",
+      "calls_oi": 4017,
+      "puts_oi": 15983,
+      "pcr_oi": 3.979
+    },
+    {
+      "expiry": "2027-01-15",
+      "calls_oi": 21775,
+      "puts_oi": 49976,
+      "pcr_oi": 2.295
+    },
+    {
+      "expiry": "2027-03-31",
+      "calls_oi": 1912,
+      "puts_oi": 2236,
+      "pcr_oi": 1.169
+    },
+    {
+      "expiry": "2027-06-17",
+      "calls_oi": 5598,
+      "puts_oi": 15752,
+      "pcr_oi": 2.814
+    },
+    {
+      "expiry": "2027-12-17",
+      "calls_oi": 7311,
+      "puts_oi": 10055,
+      "pcr_oi": 1.375
+    },
+    {
+      "expiry": "2028-01-21",
+      "calls_oi": 3966,
+      "puts_oi": 3073,
+      "pcr_oi": 0.775
+    },
+    {
+      "expiry": "2028-06-16",
+      "calls_oi": 775,
+      "puts_oi": 1024,
+      "pcr_oi": 1.321
+    },
+    {
+      "expiry": "2028-12-15",
+      "calls_oi": 2763,
+      "puts_oi": 856,
+      "pcr_oi": 0.31
+    }
+  ],
+  "walls": {
+    "put_walls": [
+      {
+        "strike": 480.0,
+        "oi": 19237
+      },
+      {
+        "strike": 460.0,
+        "oi": 17443
+      },
+      {
+        "strike": 490.0,
+        "oi": 16482
+      },
+      {
+        "strike": 420.0,
+        "oi": 16390
+      },
+      {
+        "strike": 430.0,
+        "oi": 15735
+      }
+    ],
+    "call_walls": [
+      {
+        "strike": 500.0,
+        "oi": 13241
+      },
+      {
+        "strike": 520.0,
+        "oi": 10729
+      },
+      {
+        "strike": 545.0,
+        "oi": 10377
+      },
+      {
+        "strike": 525.0,
+        "oi": 9767
+      },
+      {
+        "strike": 650.0,
+        "oi": 8769
+      }
+    ],
+    "max_pain": 492.0
+  },
+  "source": "CBOE delayed quotes",
+  "options_count": 4194
+}

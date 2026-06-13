@@ -1,0 +1,96 @@
+{
+  "symbol": "SHY",
+  "timestamp": "2026-06-12 23:26:32",
+  "current_price": 82.06,
+  "pcr_oi": 3.724,
+  "pcr_volume": 6.0,
+  "avg_call_iv_pct": 17.95,
+  "avg_put_iv_pct": 14.55,
+  "by_expiry": [
+    {
+      "expiry": "2026-06-18",
+      "calls_oi": 2244,
+      "puts_oi": 1238,
+      "pcr_oi": 0.552
+    },
+    {
+      "expiry": "2026-07-17",
+      "calls_oi": 1071,
+      "puts_oi": 42,
+      "pcr_oi": 0.039
+    },
+    {
+      "expiry": "2026-09-18",
+      "calls_oi": 1058,
+      "puts_oi": 402,
+      "pcr_oi": 0.38
+    },
+    {
+      "expiry": "2026-12-18",
+      "calls_oi": 44,
+      "puts_oi": 68,
+      "pcr_oi": 1.545
+    },
+    {
+      "expiry": "2027-01-15",
+      "calls_oi": 3913,
+      "puts_oi": 30561,
+      "pcr_oi": 7.81
+    },
+    {
+      "expiry": "2028-01-21",
+      "calls_oi": 576,
+      "puts_oi": 857,
+      "pcr_oi": 1.488
+    }
+  ],
+  "walls": {
+    "put_walls": [
+      {
+        "strike": 81.0,
+        "oi": 15882
+      },
+      {
+        "strike": 79.0,
+        "oi": 15514
+      },
+      {
+        "strike": 82.0,
+        "oi": 683
+      },
+      {
+        "strike": 78.0,
+        "oi": 504
+      },
+      {
+        "strike": 83.0,
+        "oi": 221
+      }
+    ],
+    "call_walls": [
+      {
+        "strike": 84.0,
+        "oi": 3567
+      },
+      {
+        "strike": 83.0,
+        "oi": 2766
+      },
+      {
+        "strike": 82.0,
+        "oi": 1076
+      },
+      {
+        "strike": 85.0,
+        "oi": 654
+      },
+      {
+        "strike": 95.0,
+        "oi": 309
+      }
+    ],
+    "max_pain": 82.0
+  },
+  "source": "CBOE delayed quotes",
+  "options_count": 312
+}
