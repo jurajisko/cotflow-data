@@ -28,6 +28,7 @@ PRICE_DIR = DATA_DIR / "prices"
 CURVE_DIR = DATA_DIR / "curves"
 FEATURE_DIR = DATA_DIR / "features"
 GEX_DIR = DATA_DIR / "gex"
+HISTORY_DIR = DATA_DIR / "history"
 MANIFEST_PATH = DATA_DIR / "manifest.json"
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
@@ -140,7 +141,7 @@ CURVE_CONTRACTS = {
 
 
 def ensure_dirs() -> None:
-    for path in [COT_DIR, CBOE_DIR, PRICE_DIR, CURVE_DIR, FEATURE_DIR, GEX_DIR]:
+    for path in [COT_DIR, CBOE_DIR, PRICE_DIR, CURVE_DIR, FEATURE_DIR, GEX_DIR, HISTORY_DIR]:
         path.mkdir(parents=True, exist_ok=True)
 
 
@@ -172,6 +173,14 @@ def save_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         writer = csv.DictWriter(f, fieldnames=keys)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def archive_json(category: str, key: str, run_stamp: str, payload: Any) -> None:
+    save_json(HISTORY_DIR / category / key / f"{run_stamp}.json", payload)
+
+
+def archive_csv(category: str, key: str, run_stamp: str, rows: list[dict[str, Any]]) -> None:
+    save_csv(HISTORY_DIR / category / key / f"{run_stamp}.csv", rows)
 
 
 def safe_num(value: Any) -> float | int | None:
@@ -291,10 +300,12 @@ def fetch_cot(contract_key: str, cfg: dict[str, str]) -> pd.DataFrame:
     return df
 
 
-def save_cot(contract_key: str, df: pd.DataFrame, cfg: dict[str, str]) -> None:
+def save_cot(contract_key: str, df: pd.DataFrame, cfg: dict[str, str], run_stamp: str) -> None:
     path = COT_DIR / f"{contract_key}.csv"
     df.to_csv(path, index=False)
     save_json(COT_DIR / f"{contract_key}.latest.json", df.tail(1).to_dict(orient="records")[0] if not df.empty else {})
+    archive_csv("cot", contract_key, run_stamp, df.to_dict(orient="records"))
+    archive_json("cot", contract_key, run_stamp, df.tail(1).to_dict(orient="records")[0] if not df.empty else {})
     logger.info("COT saved %s rows=%s", contract_key, len(df))
 
 
@@ -394,8 +405,9 @@ def fetch_cboe(symbol: str) -> dict[str, Any]:
     }
 
 
-def save_cboe(symbol: str, payload: dict[str, Any]) -> None:
+def save_cboe(symbol: str, payload: dict[str, Any], run_stamp: str) -> None:
     save_json(CBOE_DIR / f"{symbol}.json", payload)
+    archive_json("cboe", symbol, run_stamp, payload)
     summary_path = CBOE_DIR / "summary.csv"
     row = {
         "symbol": symbol,
@@ -414,6 +426,7 @@ def save_cboe(symbol: str, payload: dict[str, Any]) -> None:
             rows = list(csv.DictReader(f))
     rows = [r for r in rows if r.get("symbol") != symbol] + [row]
     save_csv(summary_path, rows)
+    archive_csv("cboe_summary", symbol, run_stamp, [row])
 
 
 def _norm_iv(iv: float | int | None) -> float | None:
@@ -579,9 +592,11 @@ def build_gex_payload(symbol: str, payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def save_gex(symbol: str, payload: dict[str, Any]) -> None:
+def save_gex(symbol: str, payload: dict[str, Any], run_stamp: str) -> None:
     save_json(GEX_DIR / f"{symbol}.json", payload)
     save_csv(GEX_DIR / f"{symbol}.levels.csv", payload.get("levels", []))
+    archive_json("gex", symbol, run_stamp, payload)
+    archive_csv("gex_levels", symbol, run_stamp, payload.get("levels", []))
     summary_path = GEX_DIR / "summary.csv"
     row = {
         "symbol": symbol,
@@ -602,6 +617,7 @@ def save_gex(symbol: str, payload: dict[str, Any]) -> None:
             rows = list(csv.DictReader(f))
     rows = [r for r in rows if r.get("symbol") != symbol] + [row]
     save_csv(summary_path, rows)
+    archive_csv("gex_summary", symbol, run_stamp, [row])
 
 
 def _next_active_months(root: str, exchange: str, months: list[int], n: int = 8) -> list[tuple[int, int]]:
@@ -663,8 +679,9 @@ def fetch_curve(contract_key: str, cfg: dict[str, Any]) -> dict[str, Any] | None
     return payload
 
 
-def save_curve(contract_key: str, payload: dict[str, Any]) -> None:
+def save_curve(contract_key: str, payload: dict[str, Any], run_stamp: str) -> None:
     save_json(CURVE_DIR / f"{contract_key}.json", payload)
+    archive_json("curves", contract_key, run_stamp, payload)
     rows = []
     csv_path = CURVE_DIR / f"{contract_key}.csv"
     if csv_path.exists():
@@ -681,6 +698,7 @@ def save_curve(contract_key: str, payload: dict[str, Any]) -> None:
         "signal": payload["signal"],
     })
     save_csv(csv_path, rows)
+    archive_csv("curves", contract_key, run_stamp, [rows[-1]])
 
 
 def fetch_prices(contract_key: str, yahoo: str) -> dict[str, Any]:
@@ -718,8 +736,9 @@ def pct_change(series: pd.Series, periods: int) -> float | None:
     return round((float(series.iloc[-1]) - old) / old * 100, 2)
 
 
-def save_prices(contract_key: str, payload: dict[str, Any]) -> None:
+def save_prices(contract_key: str, payload: dict[str, Any], run_stamp: str) -> None:
     save_json(PRICE_DIR / f"{contract_key}.json", payload)
+    archive_json("prices", contract_key, run_stamp, payload)
 
 
 def build_feature_row(contract_key: str) -> dict[str, Any]:
@@ -803,8 +822,10 @@ def rolling_index(series: pd.Series, lookback: int = 52) -> float | None:
 
 def sync(mode: str) -> dict[str, Any]:
     ensure_dirs()
-    now = datetime.now(timezone.utc).isoformat()
-    manifest: dict[str, Any] = {"generated_at": now, "mode": mode, "counts": {}}
+    run_dt = datetime.now(timezone.utc)
+    run_stamp = run_dt.strftime("%Y%m%dT%H%M%SZ")
+    now = run_dt.isoformat()
+    manifest: dict[str, Any] = {"generated_at": now, "run_stamp": run_stamp, "mode": mode, "counts": {}}
 
     if mode in {"all", "cot"}:
         cot_count = 0
@@ -813,7 +834,7 @@ def sync(mode: str) -> dict[str, Any]:
                 df = fetch_cot(key, cfg)
                 if df.empty:
                     continue
-                save_cot(key, df, cfg)
+                save_cot(key, df, cfg, run_stamp)
                 cot_count += 1
             except Exception as e:
                 logger.warning("COT failed %s: %s", key, e)
@@ -825,9 +846,9 @@ def sync(mode: str) -> dict[str, Any]:
         for sym in sorted(CBOE_SYMBOLS):
             try:
                 payload = fetch_cboe(sym)
-                save_cboe(sym, payload)
+                save_cboe(sym, payload, run_stamp)
                 if sym in GEX_SYMBOLS:
-                    save_gex(sym, build_gex_payload(sym, payload))
+                    save_gex(sym, build_gex_payload(sym, payload), run_stamp)
                     gex_count += 1
                 cboe_count += 1
             except Exception as e:
@@ -840,7 +861,7 @@ def sync(mode: str) -> dict[str, Any]:
         for sym in sorted(GEX_SYMBOLS):
             try:
                 payload = fetch_cboe(sym)
-                save_gex(sym, build_gex_payload(sym, payload))
+                save_gex(sym, build_gex_payload(sym, payload), run_stamp)
                 gex_count += 1
             except Exception as e:
                 logger.warning("GEX failed %s: %s", sym, e)
@@ -853,7 +874,7 @@ def sync(mode: str) -> dict[str, Any]:
                 payload = fetch_prices(key, cfg["yahoo"])
                 if not payload:
                     continue
-                save_prices(key, payload)
+                save_prices(key, payload, run_stamp)
                 price_count += 1
             except Exception as e:
                 logger.warning("Price failed %s: %s", key, e)
@@ -866,7 +887,7 @@ def sync(mode: str) -> dict[str, Any]:
                 payload = fetch_curve(key, cfg)
                 if not payload:
                     continue
-                save_curve(key, payload)
+                save_curve(key, payload, run_stamp)
                 curve_count += 1
             except Exception as e:
                 logger.warning("Curve failed %s: %s", key, e)
@@ -876,9 +897,12 @@ def sync(mode: str) -> dict[str, Any]:
         rows = [build_feature_row(key) for key in COT_CONTRACTS.keys()]
         save_csv(FEATURE_DIR / "latest_features.csv", rows)
         save_json(FEATURE_DIR / "latest_features.json", rows)
+        archive_csv("features", "latest_features", run_stamp, rows)
+        archive_json("features", "latest_features", run_stamp, rows)
         manifest["counts"]["features"] = len(rows)
 
     save_json(MANIFEST_PATH, manifest)
+    archive_json("manifest", "latest", run_stamp, manifest)
     return manifest
 
 

@@ -20,6 +20,7 @@ This repo is meant to hold:
 - downloads price history from Yahoo Finance
 - builds curve snapshots for supported futures markets
 - writes derived feature files into `data/features`
+- keeps latest files for indicators and timestamped history under `data/history`
 
 ## Index mapping
 
