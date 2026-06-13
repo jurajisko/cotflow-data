@@ -16,9 +16,16 @@ This repo is meant to hold:
 
 - downloads COT snapshots from CFTC
 - downloads delayed CBOE options data
+- calculates daily GEX levels for `SPY`, `QQQ`, and `DIA`
 - downloads price history from Yahoo Finance
 - builds curve snapshots for supported futures markets
 - writes derived feature files into `data/features`
+
+## Index mapping
+
+- `SP500` -> `SPY`
+- `NDX` -> `QQQ`
+- `WS30` -> `DIA`
 
 ## Next steps
 

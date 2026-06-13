@@ -11,6 +11,7 @@ import os
 import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from math import exp, log, pi, sqrt
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,7 @@ CBOE_DIR = DATA_DIR / "cboe"
 PRICE_DIR = DATA_DIR / "prices"
 CURVE_DIR = DATA_DIR / "curves"
 FEATURE_DIR = DATA_DIR / "features"
+GEX_DIR = DATA_DIR / "gex"
 MANIFEST_PATH = DATA_DIR / "manifest.json"
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
@@ -107,6 +109,12 @@ CBOE_SYMBOLS = {
     "SHY": "1-3Y Treasury ETF",
 }
 
+GEX_SYMBOLS = {
+    "SPY": {"contract_key": "sp500", "label": "S&P 500"},
+    "QQQ": {"contract_key": "nasdaq", "label": "Nasdaq 100"},
+    "DIA": {"contract_key": "dow", "label": "Dow Jones"},
+}
+
 CURVE_CONTRACTS = {
     "crude_oil": {"yf_root": "CL", "exchange": "NYM", "months": list(range(1, 13)), "name": "Crude Oil WTI"},
     "nat_gas": {"yf_root": "NG", "exchange": "NYM", "months": list(range(1, 13)), "name": "Natural Gas"},
@@ -132,7 +140,7 @@ CURVE_CONTRACTS = {
 
 
 def ensure_dirs() -> None:
-    for path in [COT_DIR, CBOE_DIR, PRICE_DIR, CURVE_DIR, FEATURE_DIR]:
+    for path in [COT_DIR, CBOE_DIR, PRICE_DIR, CURVE_DIR, FEATURE_DIR, GEX_DIR]:
         path.mkdir(parents=True, exist_ok=True)
 
 
@@ -382,6 +390,7 @@ def fetch_cboe(symbol: str) -> dict[str, Any]:
         "walls": walls,
         "source": "CBOE delayed quotes",
         "options_count": len(options),
+        "raw_options": options,
     }
 
 
@@ -398,6 +407,194 @@ def save_cboe(symbol: str, payload: dict[str, Any]) -> None:
         "avg_call_iv_pct": payload.get("avg_call_iv_pct"),
         "avg_put_iv_pct": payload.get("avg_put_iv_pct"),
         "options_count": payload.get("options_count"),
+    }
+    rows: list[dict[str, Any]] = []
+    if summary_path.exists():
+        with summary_path.open("r", encoding="utf-8", newline="") as f:
+            rows = list(csv.DictReader(f))
+    rows = [r for r in rows if r.get("symbol") != symbol] + [row]
+    save_csv(summary_path, rows)
+
+
+def _norm_iv(iv: float | int | None) -> float | None:
+    if iv is None:
+        return None
+    iv = float(iv)
+    if iv <= 0:
+        return None
+    return iv if iv < 1.5 else iv / 100.0
+
+
+def _norm_gamma(gamma: float | int | None) -> float | None:
+    if gamma is None:
+        return None
+    gamma = float(gamma)
+    if gamma <= 0:
+        return None
+    return gamma
+
+
+def parse_option_expiry(option_code: str) -> datetime | None:
+    m = re.match(r"[A-Z]+(\d{2})(\d{2})(\d{2})[CP]", option_code or "")
+    if not m:
+        return None
+    return datetime(2000 + int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=timezone.utc)
+
+
+def estimate_gamma(spot: float, strike: float, expiry: datetime | None, iv: float | None, rate: float = 0.05) -> float | None:
+    if spot <= 0 or strike <= 0 or expiry is None:
+        return None
+    sigma = _norm_iv(iv)
+    if sigma is None:
+        return None
+    now = datetime.now(timezone.utc)
+    seconds = (expiry - now).total_seconds()
+    if seconds <= 0:
+        return None
+    t = seconds / (365.0 * 24.0 * 3600.0)
+    if t <= 0:
+        return None
+    denom = sigma * sqrt(t)
+    if denom <= 0:
+        return None
+    d1 = (log(spot / strike) + (rate + 0.5 * sigma * sigma) * t) / denom
+    pdf = exp(-0.5 * d1 * d1) / sqrt(2.0 * pi)
+    return pdf / (spot * denom) * exp(-rate * t)
+
+
+def _gex_from_option(gamma: float, oi: float, spot: float, typ: str) -> float:
+    signed = gamma * oi * 100.0 * spot * spot * 0.01
+    return signed if typ == "C" else -signed
+
+
+def _zero_gamma_level(levels: list[dict[str, Any]]) -> float | None:
+    if len(levels) < 2:
+        return None
+    ordered = sorted(levels, key=lambda row: row["strike"])
+    running = []
+    total = 0.0
+    for row in ordered:
+        total += float(row.get("net_gex") or 0.0)
+        running.append((float(row["strike"]), total))
+    prev_strike, prev_total = running[0]
+    if prev_total == 0:
+        return prev_strike
+    for strike, total in running[1:]:
+        if total == 0:
+            return strike
+        if prev_total == 0:
+            return prev_strike
+        if (prev_total < 0 < total) or (prev_total > 0 > total):
+            if total == prev_total:
+                return strike
+            return round(prev_strike + (0 - prev_total) * (strike - prev_strike) / (total - prev_total), 2)
+        prev_strike, prev_total = strike, total
+    return None
+
+
+def build_gex_payload(symbol: str, payload: dict[str, Any]) -> dict[str, Any]:
+    raw_options = payload.get("raw_options", [])
+    spot = safe_num(payload.get("current_price")) or 0.0
+    by_strike: dict[float, dict[str, Any]] = {}
+
+    for opt in raw_options:
+        code = opt.get("option", "")
+        strike_match = re.search(r"[CP](\d{8})$", code or "")
+        if not strike_match:
+            continue
+        strike = int(strike_match.group(1)) / 1000.0
+        expiry = parse_option_expiry(code)
+        oi = safe_num(opt.get("open_interest")) or 0.0
+        iv = safe_num(opt.get("iv"))
+        typ = "C" if re.search(r"\d{6}C", code or "") else "P"
+
+        gamma = _norm_gamma(safe_num(opt.get("gamma")))
+        if gamma is None:
+            gamma = estimate_gamma(spot, strike, expiry, iv)
+        if gamma is None:
+            continue
+
+        bucket = by_strike.setdefault(strike, {
+            "strike": strike,
+            "call_oi": 0.0,
+            "put_oi": 0.0,
+            "call_gex": 0.0,
+            "put_gex": 0.0,
+            "net_gex": 0.0,
+        })
+        gex = _gex_from_option(gamma, oi, spot, typ)
+        if typ == "C":
+            bucket["call_oi"] += oi
+            bucket["call_gex"] += gex
+        else:
+            bucket["put_oi"] += oi
+            bucket["put_gex"] += gex
+        bucket["net_gex"] += gex
+
+    levels = sorted(
+        [
+            {
+                "strike": round(float(row["strike"]), 2),
+                "call_oi": round(float(row["call_oi"]), 2),
+                "put_oi": round(float(row["put_oi"]), 2),
+                "call_gex": round(float(row["call_gex"]), 2),
+                "put_gex": round(float(row["put_gex"]), 2),
+                "net_gex": round(float(row["net_gex"]), 2),
+            }
+            for row in by_strike.values()
+        ],
+        key=lambda row: row["strike"],
+    )
+
+    if not levels:
+        return {
+            "symbol": symbol,
+            "timestamp": payload.get("timestamp"),
+            "spot": spot,
+            "total_gex": 0.0,
+            "zero_gamma": None,
+            "call_wall": None,
+            "put_wall": None,
+            "levels": [],
+            "source": "CBOE delayed quotes",
+            "sign_convention": "calls positive, puts negative",
+        }
+
+    total_gex = round(sum(row["net_gex"] for row in levels), 2)
+    call_wall = max(levels, key=lambda row: row["call_gex"])
+    put_wall = min(levels, key=lambda row: row["put_gex"])
+    zero_gamma = _zero_gamma_level(levels)
+
+    return {
+        "symbol": symbol,
+        "timestamp": payload.get("timestamp"),
+        "spot": spot,
+        "total_gex": total_gex,
+        "zero_gamma": zero_gamma,
+        "call_wall": {"strike": call_wall["strike"], "gex": call_wall["call_gex"]},
+        "put_wall": {"strike": put_wall["strike"], "gex": put_wall["put_gex"]},
+        "levels": levels,
+        "source": "CBOE delayed quotes",
+        "sign_convention": "calls positive, puts negative",
+    }
+
+
+def save_gex(symbol: str, payload: dict[str, Any]) -> None:
+    save_json(GEX_DIR / f"{symbol}.json", payload)
+    save_csv(GEX_DIR / f"{symbol}.levels.csv", payload.get("levels", []))
+    summary_path = GEX_DIR / "summary.csv"
+    row = {
+        "symbol": symbol,
+        "name": CBOE_SYMBOLS.get(symbol, symbol),
+        "timestamp": payload.get("timestamp"),
+        "spot": payload.get("spot"),
+        "total_gex": payload.get("total_gex"),
+        "zero_gamma": payload.get("zero_gamma"),
+        "call_wall_strike": payload.get("call_wall", {}).get("strike") if payload.get("call_wall") else None,
+        "call_wall_gex": payload.get("call_wall", {}).get("gex") if payload.get("call_wall") else None,
+        "put_wall_strike": payload.get("put_wall", {}).get("strike") if payload.get("put_wall") else None,
+        "put_wall_gex": payload.get("put_wall", {}).get("gex") if payload.get("put_wall") else None,
+        "levels_count": len(payload.get("levels", [])),
     }
     rows: list[dict[str, Any]] = []
     if summary_path.exists():
@@ -571,6 +768,7 @@ def build_feature_row(contract_key: str) -> dict[str, Any]:
     if contract_key in COT_CONTRACTS and COT_CONTRACTS[contract_key].get("cboe_symbol"):
         sym = COT_CONTRACTS[contract_key]["cboe_symbol"]
         cboe_path = CBOE_DIR / f"{sym}.json"
+        gex_path = GEX_DIR / f"{sym}.json"
         if cboe_path.exists():
             o = json.loads(cboe_path.read_text(encoding="utf-8"))
             feature.update({
@@ -578,6 +776,15 @@ def build_feature_row(contract_key: str) -> dict[str, Any]:
                 "pcr_oi": o.get("pcr_oi"),
                 "pcr_volume": o.get("pcr_volume"),
                 "iv_skew": o.get("avg_put_iv_pct") - o.get("avg_call_iv_pct") if o.get("avg_put_iv_pct") is not None and o.get("avg_call_iv_pct") is not None else None,
+            })
+        if gex_path.exists():
+            g = json.loads(gex_path.read_text(encoding="utf-8"))
+            feature.update({
+                "gex_symbol": sym,
+                "gex_total": g.get("total_gex"),
+                "gex_zero_gamma": g.get("zero_gamma"),
+                "gex_call_wall": g.get("call_wall", {}).get("strike") if g.get("call_wall") else None,
+                "gex_put_wall": g.get("put_wall", {}).get("strike") if g.get("put_wall") else None,
             })
     return feature
 
@@ -614,14 +821,30 @@ def sync(mode: str) -> dict[str, Any]:
 
     if mode in {"all", "cboe"}:
         cboe_count = 0
+        gex_count = 0
         for sym in sorted(CBOE_SYMBOLS):
             try:
                 payload = fetch_cboe(sym)
                 save_cboe(sym, payload)
+                if sym in GEX_SYMBOLS:
+                    save_gex(sym, build_gex_payload(sym, payload))
+                    gex_count += 1
                 cboe_count += 1
             except Exception as e:
                 logger.warning("CBOE failed %s: %s", sym, e)
         manifest["counts"]["cboe"] = cboe_count
+        manifest["counts"]["gex"] = gex_count
+
+    if mode == "gex":
+        gex_count = 0
+        for sym in sorted(GEX_SYMBOLS):
+            try:
+                payload = fetch_cboe(sym)
+                save_gex(sym, build_gex_payload(sym, payload))
+                gex_count += 1
+            except Exception as e:
+                logger.warning("GEX failed %s: %s", sym, e)
+        manifest["counts"]["gex"] = gex_count
 
     if mode in {"all", "prices"}:
         price_count = 0
@@ -661,7 +884,7 @@ def sync(mode: str) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("--mode", choices=["all", "cot", "cboe", "prices", "curves", "features"], default="all")
+    p.add_argument("--mode", choices=["all", "cot", "cboe", "gex", "prices", "curves", "features"], default="all")
     return p.parse_args()
 
 
