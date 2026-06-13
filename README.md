@@ -10,7 +10,7 @@ This repo is meant to hold:
 ## Planned cadence
 
 - COT: weekly on Friday after the report window
-- Market data and CBOE: several times per US session on weekdays
+- Market data, CBOE, and GEX: hourly during US session on weekdays
 
 ## What the sync does
 

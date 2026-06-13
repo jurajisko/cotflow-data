@@ -2,13 +2,7 @@ name: sync-market
 
 on:
   schedule:
-    - cron: "45 9 * * 1-5"
-      timezone: "America/New_York"
-    - cron: "0 12 * * 1-5"
-      timezone: "America/New_York"
-    - cron: "30 14 * * 1-5"
-      timezone: "America/New_York"
-    - cron: "45 15 * * 1-5"
+    - cron: "45 9-15 * * 1-5"
       timezone: "America/New_York"
   workflow_dispatch:
 
