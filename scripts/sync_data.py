@@ -701,10 +701,10 @@ def save_curve(contract_key: str, payload: dict[str, Any], run_stamp: str) -> No
     archive_csv("curves", contract_key, run_stamp, [rows[-1]])
 
 
-def fetch_prices(contract_key: str, yahoo: str) -> dict[str, Any]:
+def fetch_prices(contract_key: str, yahoo: str) -> tuple[dict[str, Any], pd.DataFrame]:
     df = yf.download(yahoo, period="2y", progress=False, auto_adjust=True)
     if df.empty:
-        return {}
+        return {}, pd.DataFrame()
     if isinstance(df.columns, pd.MultiIndex):
         close = df["Close"].iloc[:, 0]
     else:
@@ -724,7 +724,28 @@ def fetch_prices(contract_key: str, yahoo: str) -> dict[str, Any]:
         },
         "source": "yfinance",
     }
-    return payload
+    if isinstance(df.columns, pd.MultiIndex):
+        ohlc = pd.DataFrame({
+            "date": df.index,
+            "open": df["Open"].iloc[:, 0],
+            "high": df["High"].iloc[:, 0],
+            "low": df["Low"].iloc[:, 0],
+            "close": df["Close"].iloc[:, 0],
+            "volume": df["Volume"].iloc[:, 0] if "Volume" in df.columns.get_level_values(0) else 0,
+        })
+    else:
+        ohlc = pd.DataFrame({
+            "date": df.index,
+            "open": df["Open"],
+            "high": df["High"],
+            "low": df["Low"],
+            "close": df["Close"],
+            "volume": df.get("Volume", 0),
+        })
+    ohlc = ohlc.dropna(subset=["open", "high", "low", "close"]).copy()
+    ohlc["date"] = pd.to_datetime(ohlc["date"], errors="coerce")
+    ohlc = ohlc.dropna(subset=["date"]).sort_values("date").reset_index(drop=True)
+    return payload, ohlc
 
 
 def pct_change(series: pd.Series, periods: int) -> float | None:
@@ -736,8 +757,34 @@ def pct_change(series: pd.Series, periods: int) -> float | None:
     return round((float(series.iloc[-1]) - old) / old * 100, 2)
 
 
-def save_prices(contract_key: str, payload: dict[str, Any], run_stamp: str) -> None:
+def save_prices(contract_key: str, payload: dict[str, Any], ohlc: pd.DataFrame, run_stamp: str) -> None:
     save_json(PRICE_DIR / f"{contract_key}.json", payload)
+    if not ohlc.empty:
+        close_rows = [{"date": row["date"].strftime("%Y-%m-%d"), "close": float(row["close"])} for _, row in ohlc.iterrows()]
+        save_csv(PRICE_DIR / f"{contract_key}.csv", close_rows)
+        save_csv(PRICE_DIR / f"{contract_key}.ohlc.csv", [
+            {
+                "date": row["date"].strftime("%Y-%m-%d"),
+                "open": float(row["open"]),
+                "high": float(row["high"]),
+                "low": float(row["low"]),
+                "close": float(row["close"]),
+                "volume": int(row["volume"]) if row.get("volume") is not None and not pd.isna(row["volume"]) else 0,
+            }
+            for _, row in ohlc.iterrows()
+        ])
+        archive_csv("prices", contract_key, run_stamp, close_rows)
+        archive_csv("prices_ohlc", contract_key, run_stamp, [
+            {
+                "date": row["date"].strftime("%Y-%m-%d"),
+                "open": float(row["open"]),
+                "high": float(row["high"]),
+                "low": float(row["low"]),
+                "close": float(row["close"]),
+                "volume": int(row["volume"]) if row.get("volume") is not None and not pd.isna(row["volume"]) else 0,
+            }
+            for _, row in ohlc.iterrows()
+        ])
     archive_json("prices", contract_key, run_stamp, payload)
 
 
@@ -871,10 +918,10 @@ def sync(mode: str) -> dict[str, Any]:
         price_count = 0
         for key, cfg in COT_CONTRACTS.items():
             try:
-                payload = fetch_prices(key, cfg["yahoo"])
+                payload, ohlc = fetch_prices(key, cfg["yahoo"])
                 if not payload:
                     continue
-                save_prices(key, payload, run_stamp)
+                save_prices(key, payload, ohlc, run_stamp)
                 price_count += 1
             except Exception as e:
                 logger.warning("Price failed %s: %s", key, e)
