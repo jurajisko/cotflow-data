@@ -1,0 +1,48 @@
+{
+  "contract": "wheat",
+  "name": "Wheat",
+  "date": "2026-06-18",
+  "curve_months": [
+    {
+      "expiry": "2026-07",
+      "price": 605.0
+    },
+    {
+      "expiry": "2026-09",
+      "price": 613.25
+    },
+    {
+      "expiry": "2026-12",
+      "price": 628.75
+    },
+    {
+      "expiry": "2027-03",
+      "price": 643.25
+    },
+    {
+      "expiry": "2027-05",
+      "price": 652.0
+    },
+    {
+      "expiry": "2027-07",
+      "price": 657.75
+    },
+    {
+      "expiry": "2027-09",
+      "price": 668.0
+    },
+    {
+      "expiry": "2027-12",
+      "price": 683.25
+    }
+  ],
+  "m1_price": 605.0,
+  "m2_price": 613.25,
+  "m3_price": 628.75,
+  "m6_price": 657.75,
+  "spread_m1m3": 3.9256,
+  "spread_m1m6": 8.719,
+  "curve_slope_proxy": 0.9939,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
