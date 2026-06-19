@@ -1,0 +1,44 @@
+{
+  "contract": "rbob",
+  "name": "RBOB Gasoline",
+  "date": "2026-06-19",
+  "curve_months": [
+    {
+      "expiry": "2026-07",
+      "price": 3.0041000843048096
+    },
+    {
+      "expiry": "2026-08",
+      "price": 2.9121999740600586
+    },
+    {
+      "expiry": "2026-09",
+      "price": 2.799099922180176
+    },
+    {
+      "expiry": "2026-10",
+      "price": 2.549799919128418
+    },
+    {
+      "expiry": "2026-11",
+      "price": 2.4293999671936035
+    },
+    {
+      "expiry": "2026-12",
+      "price": 2.338200092315674
+    },
+    {
+      "expiry": "2027-01",
+      "price": 2.283799886703491
+    }
+  ],
+  "m1_price": 3.0041000843048096,
+  "m2_price": 2.9121999740600586,
+  "m3_price": 2.799099922180176,
+  "m6_price": 2.338200092315674,
+  "spread_m1m3": -6.824,
+  "spread_m1m6": -22.1664,
+  "curve_slope_proxy": -0.9845,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}
