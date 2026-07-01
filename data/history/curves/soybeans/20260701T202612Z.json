@@ -1,0 +1,48 @@
+{
+  "contract": "soybeans",
+  "name": "Soybeans",
+  "date": "2026-07-01",
+  "curve_months": [
+    {
+      "expiry": "2026-07",
+      "price": 1126.5
+    },
+    {
+      "expiry": "2026-08",
+      "price": 1133.5
+    },
+    {
+      "expiry": "2026-09",
+      "price": 1136.0
+    },
+    {
+      "expiry": "2026-11",
+      "price": 1149.5
+    },
+    {
+      "expiry": "2027-01",
+      "price": 1163.75
+    },
+    {
+      "expiry": "2027-03",
+      "price": 1170.5
+    },
+    {
+      "expiry": "2027-05",
+      "price": 1178.0
+    },
+    {
+      "expiry": "2027-07",
+      "price": 1185.0
+    }
+  ],
+  "m1_price": 1126.5,
+  "m2_price": 1133.5,
+  "m3_price": 1136.0,
+  "m6_price": 1170.5,
+  "spread_m1m3": 0.8433,
+  "spread_m1m6": 3.9059,
+  "curve_slope_proxy": 0.9905,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}

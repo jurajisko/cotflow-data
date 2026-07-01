@@ -1,0 +1,48 @@
+{
+  "contract": "live_cattle",
+  "name": "Live Cattle",
+  "date": "2026-07-01",
+  "curve_months": [
+    {
+      "expiry": "2026-08",
+      "price": 241.875
+    },
+    {
+      "expiry": "2026-10",
+      "price": 236.8249969482422
+    },
+    {
+      "expiry": "2026-12",
+      "price": 236.6999969482422
+    },
+    {
+      "expiry": "2027-02",
+      "price": 237.1999969482422
+    },
+    {
+      "expiry": "2027-04",
+      "price": 237.5749969482422
+    },
+    {
+      "expiry": "2027-06",
+      "price": 231.5
+    },
+    {
+      "expiry": "2027-08",
+      "price": 228.27499389648438
+    },
+    {
+      "expiry": "2027-10",
+      "price": 227.125
+    }
+  ],
+  "m1_price": 241.875,
+  "m2_price": 236.8249969482422,
+  "m3_price": 236.6999969482422,
+  "m6_price": 231.5,
+  "spread_m1m3": -2.1395,
+  "spread_m1m6": -4.2894,
+  "curve_slope_proxy": -0.9186,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}
