@@ -1,0 +1,44 @@
+{
+  "contract": "soy_meal",
+  "name": "Soybean Meal",
+  "date": "2026-07-31",
+  "curve_months": [
+    {
+      "expiry": "2026-08",
+      "price": 311.0
+    },
+    {
+      "expiry": "2026-09",
+      "price": 314.5
+    },
+    {
+      "expiry": "2026-10",
+      "price": 316.20001220703125
+    },
+    {
+      "expiry": "2026-12",
+      "price": 320.8999938964844
+    },
+    {
+      "expiry": "2027-01",
+      "price": 323.20001220703125
+    },
+    {
+      "expiry": "2027-03",
+      "price": 325.29998779296875
+    },
+    {
+      "expiry": "2027-05",
+      "price": 327.3999938964844
+    }
+  ],
+  "m1_price": 311.0,
+  "m2_price": 314.5,
+  "m3_price": 316.20001220703125,
+  "m6_price": 325.29998779296875,
+  "spread_m1m3": 1.672,
+  "spread_m1m6": 4.5981,
+  "curve_slope_proxy": 0.9929,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
