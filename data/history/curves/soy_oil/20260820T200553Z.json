@@ -1,0 +1,44 @@
+{
+  "contract": "soy_oil",
+  "name": "Soybean Oil",
+  "date": "2026-08-20",
+  "curve_months": [
+    {
+      "expiry": "2026-09",
+      "price": 71.23999786376953
+    },
+    {
+      "expiry": "2026-10",
+      "price": 71.4000015258789
+    },
+    {
+      "expiry": "2026-12",
+      "price": 71.36000061035156
+    },
+    {
+      "expiry": "2027-01",
+      "price": 71.20999908447266
+    },
+    {
+      "expiry": "2027-03",
+      "price": 70.95999908447266
+    },
+    {
+      "expiry": "2027-05",
+      "price": 70.69000244140625
+    },
+    {
+      "expiry": "2027-07",
+      "price": 70.36000061035156
+    }
+  ],
+  "m1_price": 71.23999786376953,
+  "m2_price": 71.4000015258789,
+  "m3_price": 71.36000061035156,
+  "m6_price": 70.69000244140625,
+  "spread_m1m3": 0.1684,
+  "spread_m1m6": -0.772,
+  "curve_slope_proxy": -0.8926,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
