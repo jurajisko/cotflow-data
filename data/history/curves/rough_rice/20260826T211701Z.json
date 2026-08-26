@@ -1,0 +1,40 @@
+{
+  "contract": "rough_rice",
+  "name": "Rough Rice",
+  "date": "2026-08-26",
+  "curve_months": [
+    {
+      "expiry": "2026-09",
+      "price": 14.850000381469727
+    },
+    {
+      "expiry": "2026-11",
+      "price": 15.305000305175781
+    },
+    {
+      "expiry": "2027-01",
+      "price": 15.755000114440918
+    },
+    {
+      "expiry": "2027-03",
+      "price": 16.024999618530273
+    },
+    {
+      "expiry": "2027-05",
+      "price": 15.890000343322754
+    },
+    {
+      "expiry": "2027-07",
+      "price": 16.125
+    }
+  ],
+  "m1_price": 14.850000381469727,
+  "m2_price": 15.305000305175781,
+  "m3_price": 15.755000114440918,
+  "m6_price": 16.125,
+  "spread_m1m3": 6.0943,
+  "spread_m1m6": 8.5859,
+  "curve_slope_proxy": 0.919,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
