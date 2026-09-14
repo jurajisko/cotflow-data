@@ -1,0 +1,48 @@
+{
+  "contract": "lean_hogs",
+  "name": "Lean Hogs",
+  "date": "2026-09-14",
+  "curve_months": [
+    {
+      "expiry": "2026-10",
+      "price": 79.7249984741211
+    },
+    {
+      "expiry": "2026-12",
+      "price": 71.0999984741211
+    },
+    {
+      "expiry": "2027-02",
+      "price": 73.5250015258789
+    },
+    {
+      "expiry": "2027-04",
+      "price": 79.25
+    },
+    {
+      "expiry": "2027-05",
+      "price": 83.5999984741211
+    },
+    {
+      "expiry": "2027-06",
+      "price": 92.4749984741211
+    },
+    {
+      "expiry": "2027-07",
+      "price": 94.1500015258789
+    },
+    {
+      "expiry": "2027-08",
+      "price": 93.8499984741211
+    }
+  ],
+  "m1_price": 79.7249984741211,
+  "m2_price": 71.0999984741211,
+  "m3_price": 73.5250015258789,
+  "m6_price": 92.4749984741211,
+  "spread_m1m3": -7.7767,
+  "spread_m1m6": 15.9925,
+  "curve_slope_proxy": 0.877,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}
