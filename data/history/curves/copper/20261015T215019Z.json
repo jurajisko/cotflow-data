@@ -1,0 +1,48 @@
+{
+  "contract": "copper",
+  "name": "Copper",
+  "date": "2026-10-15",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 6.5625
+    },
+    {
+      "expiry": "2027-03",
+      "price": 6.671500205993652
+    },
+    {
+      "expiry": "2027-05",
+      "price": 6.741000175476074
+    },
+    {
+      "expiry": "2027-07",
+      "price": 6.807000160217285
+    },
+    {
+      "expiry": "2027-09",
+      "price": 6.85699987411499
+    },
+    {
+      "expiry": "2027-12",
+      "price": 6.954999923706055
+    },
+    {
+      "expiry": "2028-03",
+      "price": 7.145999908447266
+    },
+    {
+      "expiry": "2028-05",
+      "price": 7.208000183105469
+    }
+  ],
+  "m1_price": 6.5625,
+  "m2_price": 6.671500205993652,
+  "m3_price": 6.741000175476074,
+  "m6_price": 6.954999923706055,
+  "spread_m1m3": 2.72,
+  "spread_m1m6": 5.981,
+  "curve_slope_proxy": 0.9856,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}

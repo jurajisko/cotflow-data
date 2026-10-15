@@ -5,11 +5,11 @@
   "curve_months": [
     {
       "expiry": "2026-12",
-      "price": 1134.0
+      "price": 1136.0
     },
     {
       "expiry": "2027-03",
-      "price": 1143.0
+      "price": 1152.0
     },
     {
       "expiry": "2027-06",
@@ -32,13 +32,13 @@
       "price": 1183.4000244140625
     }
   ],
-  "m1_price": 1134.0,
-  "m2_price": 1143.0,
+  "m1_price": 1136.0,
+  "m2_price": 1152.0,
   "m3_price": 1123.800048828125,
   "m6_price": 1167.5,
-  "spread_m1m3": -0.8995,
-  "spread_m1m6": 2.9541,
-  "curve_slope_proxy": 0.8011,
+  "spread_m1m3": -1.0739,
+  "spread_m1m6": 2.7729,
+  "curve_slope_proxy": 0.7438,
   "signal": "BACKWARDATION",
   "source": "yfinance futures"
 }
