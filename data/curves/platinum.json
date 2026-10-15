@@ -1,48 +1,48 @@
 {
   "contract": "platinum",
   "name": "Platinum",
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "curve_months": [
     {
       "expiry": "2026-10",
-      "price": 1657.4000244140625
+      "price": 1596.0
     },
     {
       "expiry": "2027-01",
-      "price": 1607.300048828125
+      "price": 1629.0
     },
     {
       "expiry": "2027-04",
-      "price": 1626.800048828125
+      "price": 1647.9000244140625
     },
     {
       "expiry": "2027-07",
-      "price": 1652.9000244140625
+      "price": 1667.9000244140625
     },
     {
       "expiry": "2027-10",
-      "price": 1731.300048828125
+      "price": 1674.199951171875
     },
     {
       "expiry": "2028-01",
-      "price": 1746.5999755859375
+      "price": 1689.5
     },
     {
       "expiry": "2028-04",
-      "price": 1700.0
+      "price": 1703.9000244140625
     },
     {
       "expiry": "2028-07",
-      "price": 1774.0999755859375
+      "price": 1717.5999755859375
     }
   ],
-  "m1_price": 1657.4000244140625,
-  "m2_price": 1607.300048828125,
-  "m3_price": 1626.800048828125,
-  "m6_price": 1746.5999755859375,
-  "spread_m1m3": -1.8463,
-  "spread_m1m6": 5.3819,
-  "curve_slope_proxy": 0.8337,
-  "signal": "BACKWARDATION",
+  "m1_price": 1596.0,
+  "m2_price": 1629.0,
+  "m3_price": 1647.9000244140625,
+  "m6_price": 1689.5,
+  "spread_m1m3": 3.2519,
+  "spread_m1m6": 5.8584,
+  "curve_slope_proxy": 0.9839,
+  "signal": "CONTANGO",
   "source": "yfinance futures"
 }
