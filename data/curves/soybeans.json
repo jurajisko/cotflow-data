@@ -1,48 +1,48 @@
 {
   "contract": "soybeans",
   "name": "Soybeans",
-  "date": "2026-10-16",
+  "date": "2026-10-19",
   "curve_months": [
     {
       "expiry": "2026-11",
-      "price": 1260.5
+      "price": 1253.0
     },
     {
       "expiry": "2027-01",
-      "price": 1275.25
+      "price": 1268.25
     },
     {
       "expiry": "2027-03",
-      "price": 1283.25
+      "price": 1277.25
     },
     {
       "expiry": "2027-05",
-      "price": 1291.25
+      "price": 1286.5
     },
     {
       "expiry": "2027-07",
-      "price": 1297.0
+      "price": 1292.75
     },
     {
       "expiry": "2027-08",
-      "price": 1281.0
+      "price": 1278.25
     },
     {
       "expiry": "2027-09",
-      "price": 1249.25
+      "price": 1248.0
     },
     {
       "expiry": "2027-11",
-      "price": 1240.0
+      "price": 1239.25
     }
   ],
-  "m1_price": 1260.5,
-  "m2_price": 1275.25,
-  "m3_price": 1283.25,
-  "m6_price": 1281.0,
-  "spread_m1m3": 1.8048,
-  "spread_m1m6": 1.6263,
-  "curve_slope_proxy": -0.3941,
+  "m1_price": 1253.0,
+  "m2_price": 1268.25,
+  "m3_price": 1277.25,
+  "m6_price": 1278.25,
+  "spread_m1m3": 1.9354,
+  "spread_m1m6": 2.0152,
+  "curve_slope_proxy": -0.285,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }
