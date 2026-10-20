@@ -1,0 +1,44 @@
+{
+  "contract": "heating",
+  "name": "Heating Oil",
+  "date": "2026-10-20",
+  "curve_months": [
+    {
+      "expiry": "2026-11",
+      "price": 4.973299980163574
+    },
+    {
+      "expiry": "2026-12",
+      "price": 4.747900009155273
+    },
+    {
+      "expiry": "2027-01",
+      "price": 4.636099815368652
+    },
+    {
+      "expiry": "2027-02",
+      "price": 4.52400016784668
+    },
+    {
+      "expiry": "2027-03",
+      "price": 4.392399787902832
+    },
+    {
+      "expiry": "2027-04",
+      "price": 4.2459001541137695
+    },
+    {
+      "expiry": "2027-05",
+      "price": 4.1097002029418945
+    }
+  ],
+  "m1_price": 4.973299980163574,
+  "m2_price": 4.747900009155273,
+  "m3_price": 4.636099815368652,
+  "m6_price": 4.2459001541137695,
+  "spread_m1m3": -6.7802,
+  "spread_m1m6": -14.6261,
+  "curve_slope_proxy": -0.9958,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}

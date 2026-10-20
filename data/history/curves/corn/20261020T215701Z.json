@@ -1,0 +1,48 @@
+{
+  "contract": "corn",
+  "name": "Corn",
+  "date": "2026-10-20",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 461.5
+    },
+    {
+      "expiry": "2027-03",
+      "price": 475.5
+    },
+    {
+      "expiry": "2027-05",
+      "price": 483.75
+    },
+    {
+      "expiry": "2027-07",
+      "price": 490.25
+    },
+    {
+      "expiry": "2027-09",
+      "price": 488.75
+    },
+    {
+      "expiry": "2027-12",
+      "price": 502.75
+    },
+    {
+      "expiry": "2028-03",
+      "price": 516.75
+    },
+    {
+      "expiry": "2028-05",
+      "price": 524.0
+    }
+  ],
+  "m1_price": 461.5,
+  "m2_price": 475.5,
+  "m3_price": 483.75,
+  "m6_price": 502.75,
+  "spread_m1m3": 4.8212,
+  "spread_m1m6": 8.9382,
+  "curve_slope_proxy": 0.9801,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
