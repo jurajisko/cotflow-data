@@ -1,48 +1,48 @@
 {
   "contract": "live_cattle",
   "name": "Live Cattle",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "curve_months": [
     {
       "expiry": "2026-10",
-      "price": 227.5
+      "price": 229.4499969482422
     },
     {
       "expiry": "2026-12",
-      "price": 227.97500610351562
+      "price": 230.25
     },
     {
       "expiry": "2027-02",
-      "price": 230.85000610351562
+      "price": 233.14999389648438
     },
     {
       "expiry": "2027-04",
-      "price": 232.47500610351562
+      "price": 234.375
     },
     {
       "expiry": "2027-06",
-      "price": 226.85000610351562
+      "price": 228.375
     },
     {
       "expiry": "2027-08",
-      "price": 223.4250030517578
+      "price": 224.35000610351562
     },
     {
       "expiry": "2027-10",
-      "price": 221.9499969482422
+      "price": 222.5500030517578
     },
     {
       "expiry": "2027-12",
-      "price": 222.5
+      "price": 222.875
     }
   ],
-  "m1_price": 227.5,
-  "m2_price": 227.97500610351562,
-  "m3_price": 230.85000610351562,
-  "m6_price": 223.4250030517578,
-  "spread_m1m3": 1.4725,
-  "spread_m1m6": -1.7912,
-  "curve_slope_proxy": -0.7045,
+  "m1_price": 229.4499969482422,
+  "m2_price": 230.25,
+  "m3_price": 233.14999389648438,
+  "m6_price": 224.35000610351562,
+  "spread_m1m3": 1.6126,
+  "spread_m1m6": -2.2227,
+  "curve_slope_proxy": -0.753,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }

@@ -1,19 +1,19 @@
 {
   "contract": "lean_hogs",
   "name": "Lean Hogs",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "curve_months": [
     {
       "expiry": "2026-12",
-      "price": 66.4749984741211
+      "price": 67.1500015258789
     },
     {
       "expiry": "2027-02",
-      "price": 68.75
+      "price": 69.25
     },
     {
       "expiry": "2027-04",
-      "price": 73.875
+      "price": 73.94999694824219
     },
     {
       "expiry": "2027-05",
@@ -21,24 +21,24 @@
     },
     {
       "expiry": "2027-06",
-      "price": 89.07499694824219
+      "price": 88.6500015258789
     },
     {
       "expiry": "2027-07",
-      "price": 91.67500305175781
+      "price": 91.19999694824219
     },
     {
       "expiry": "2027-08",
-      "price": 91.9000015258789
+      "price": 91.625
     }
   ],
-  "m1_price": 66.4749984741211,
-  "m2_price": 68.75,
-  "m3_price": 73.875,
-  "m6_price": 91.67500305175781,
-  "spread_m1m3": 11.132,
-  "spread_m1m6": 37.909,
-  "curve_slope_proxy": 0.9761,
+  "m1_price": 67.1500015258789,
+  "m2_price": 69.25,
+  "m3_price": 73.94999694824219,
+  "m6_price": 91.19999694824219,
+  "spread_m1m3": 10.1266,
+  "spread_m1m6": 35.8153,
+  "curve_slope_proxy": 0.9769,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }
