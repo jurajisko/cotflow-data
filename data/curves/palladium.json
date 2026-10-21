@@ -5,15 +5,15 @@
   "curve_months": [
     {
       "expiry": "2026-12",
-      "price": 1091.5
+      "price": 1092.0
     },
     {
       "expiry": "2027-03",
-      "price": 1103.0
+      "price": 1094.0
     },
     {
       "expiry": "2027-06",
-      "price": 1130.699951171875
+      "price": 1105.0
     },
     {
       "expiry": "2027-09",
@@ -32,13 +32,13 @@
       "price": 1185.199951171875
     }
   ],
-  "m1_price": 1091.5,
-  "m2_price": 1103.0,
-  "m3_price": 1130.699951171875,
+  "m1_price": 1092.0,
+  "m2_price": 1094.0,
+  "m3_price": 1105.0,
   "m6_price": 1169.300048828125,
-  "spread_m1m3": 3.5914,
-  "spread_m1m6": 7.1278,
-  "curve_slope_proxy": 0.9934,
+  "spread_m1m3": 1.1905,
+  "spread_m1m6": 7.0788,
+  "curve_slope_proxy": 0.9787,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }

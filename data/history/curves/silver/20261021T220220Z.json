@@ -1,0 +1,48 @@
+{
+  "contract": "silver",
+  "name": "Silver",
+  "date": "2026-10-21",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 58.1150016784668
+    },
+    {
+      "expiry": "2027-03",
+      "price": 58.88999938964844
+    },
+    {
+      "expiry": "2027-05",
+      "price": 58.96500015258789
+    },
+    {
+      "expiry": "2027-07",
+      "price": 59.4900016784668
+    },
+    {
+      "expiry": "2027-09",
+      "price": 60.150001525878906
+    },
+    {
+      "expiry": "2027-12",
+      "price": 60.25
+    },
+    {
+      "expiry": "2028-03",
+      "price": 61.882999420166016
+    },
+    {
+      "expiry": "2028-05",
+      "price": 62.43199920654297
+    }
+  ],
+  "m1_price": 58.1150016784668,
+  "m2_price": 58.88999938964844,
+  "m3_price": 58.96500015258789,
+  "m6_price": 60.25,
+  "spread_m1m3": 1.4626,
+  "spread_m1m6": 3.6737,
+  "curve_slope_proxy": 0.969,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
