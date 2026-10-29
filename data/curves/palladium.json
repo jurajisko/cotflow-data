@@ -9,7 +9,7 @@
     },
     {
       "expiry": "2027-03",
-      "price": 1009.0
+      "price": 1013.5
     },
     {
       "expiry": "2027-06",
@@ -33,12 +33,12 @@
     }
   ],
   "m1_price": 1000.0,
-  "m2_price": 1009.0,
+  "m2_price": 1013.5,
   "m3_price": 1019.5,
   "m6_price": 1074.800048828125,
   "spread_m1m3": 1.95,
   "spread_m1m6": 7.48,
-  "curve_slope_proxy": 0.991,
+  "curve_slope_proxy": 0.9913,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }
