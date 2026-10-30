@@ -9,15 +9,15 @@
     },
     {
       "expiry": "2027-01",
-      "price": 1427.5999755859375
+      "price": 1434.5
     },
     {
       "expiry": "2027-04",
-      "price": 1444.0999755859375
+      "price": 1452.300048828125
     },
     {
       "expiry": "2027-07",
-      "price": 1472.199951171875
+      "price": 1473.5
     },
     {
       "expiry": "2027-10",
@@ -37,12 +37,12 @@
     }
   ],
   "m1_price": 1547.9000244140625,
-  "m2_price": 1427.5999755859375,
-  "m3_price": 1444.0999755859375,
+  "m2_price": 1434.5,
+  "m3_price": 1452.300048828125,
   "m6_price": 1561.0,
-  "spread_m1m3": -6.7059,
+  "spread_m1m3": -6.1761,
   "spread_m1m6": 0.8463,
-  "curve_slope_proxy": 0.6774,
+  "curve_slope_proxy": 0.6819,
   "signal": "BACKWARDATION",
   "source": "yfinance futures"
 }
