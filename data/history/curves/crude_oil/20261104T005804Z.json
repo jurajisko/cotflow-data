@@ -1,0 +1,44 @@
+{
+  "contract": "crude_oil",
+  "name": "Crude Oil WTI",
+  "date": "2026-11-04",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 96.56999969482422
+    },
+    {
+      "expiry": "2027-01",
+      "price": 95.26000213623047
+    },
+    {
+      "expiry": "2027-02",
+      "price": 93.44000244140625
+    },
+    {
+      "expiry": "2027-03",
+      "price": 91.54000091552734
+    },
+    {
+      "expiry": "2027-04",
+      "price": 89.63999938964844
+    },
+    {
+      "expiry": "2027-05",
+      "price": 88.0199966430664
+    },
+    {
+      "expiry": "2027-06",
+      "price": 86.55000305175781
+    }
+  ],
+  "m1_price": 96.56999969482422,
+  "m2_price": 95.26000213623047,
+  "m3_price": 93.44000244140625,
+  "m6_price": 88.0199966430664,
+  "spread_m1m3": -3.2412,
+  "spread_m1m6": -8.8537,
+  "curve_slope_proxy": -0.9989,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}
