@@ -1,48 +1,48 @@
 {
   "contract": "soybeans",
   "name": "Soybeans",
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "curve_months": [
     {
       "expiry": "2026-11",
-      "price": 1227.0
+      "price": 1243.0
     },
     {
       "expiry": "2027-01",
-      "price": 1219.5
-    },
-    {
-      "expiry": "2027-03",
-      "price": 1225.5
-    },
-    {
-      "expiry": "2027-05",
       "price": 1232.75
     },
     {
+      "expiry": "2027-03",
+      "price": 1238.5
+    },
+    {
+      "expiry": "2027-05",
+      "price": 1245.5
+    },
+    {
       "expiry": "2027-07",
-      "price": 1238.0
+      "price": 1250.25
     },
     {
       "expiry": "2027-08",
-      "price": 1220.25
+      "price": 1233.0
     },
     {
       "expiry": "2027-09",
-      "price": 1185.0
+      "price": 1195.75
     },
     {
       "expiry": "2027-11",
-      "price": 1176.75
+      "price": 1187.25
     }
   ],
-  "m1_price": 1227.0,
-  "m2_price": 1219.5,
-  "m3_price": 1225.5,
-  "m6_price": 1220.25,
-  "spread_m1m3": -0.1222,
-  "spread_m1m6": -0.5501,
-  "curve_slope_proxy": -0.6967,
+  "m1_price": 1243.0,
+  "m2_price": 1232.75,
+  "m3_price": 1238.5,
+  "m6_price": 1233.0,
+  "spread_m1m3": -0.362,
+  "spread_m1m6": -0.8045,
+  "curve_slope_proxy": -0.7267,
   "signal": "BACKWARDATION",
   "source": "yfinance futures"
 }
