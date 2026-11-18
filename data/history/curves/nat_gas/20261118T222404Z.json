@@ -1,0 +1,44 @@
+{
+  "contract": "nat_gas",
+  "name": "Natural Gas",
+  "date": "2026-11-18",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 3.377000093460083
+    },
+    {
+      "expiry": "2027-01",
+      "price": 3.7769999504089355
+    },
+    {
+      "expiry": "2027-02",
+      "price": 3.3329999446868896
+    },
+    {
+      "expiry": "2027-03",
+      "price": 2.502000093460083
+    },
+    {
+      "expiry": "2027-04",
+      "price": 2.447000026702881
+    },
+    {
+      "expiry": "2027-05",
+      "price": 2.502000093460083
+    },
+    {
+      "expiry": "2027-06",
+      "price": 2.6589999198913574
+    }
+  ],
+  "m1_price": 3.377000093460083,
+  "m2_price": 3.7769999504089355,
+  "m3_price": 3.3329999446868896,
+  "m6_price": 2.502000093460083,
+  "spread_m1m3": -1.3029,
+  "spread_m1m6": -25.9106,
+  "curve_slope_proxy": -0.7982,
+  "signal": "BACKWARDATION",
+  "source": "yfinance futures"
+}
