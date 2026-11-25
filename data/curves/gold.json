@@ -1,48 +1,48 @@
 {
   "contract": "gold",
   "name": "Gold",
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "curve_months": [
     {
       "expiry": "2026-12",
-      "price": 3559.5
+      "price": 3568.199951171875
     },
     {
       "expiry": "2027-02",
-      "price": 3588.5
+      "price": 3596.89990234375
     },
     {
       "expiry": "2027-04",
-      "price": 3620.0
+      "price": 3627.89990234375
     },
     {
       "expiry": "2027-06",
-      "price": 3638.5
+      "price": 3666.89990234375
     },
     {
       "expiry": "2027-08",
-      "price": 3676.199951171875
+      "price": 3709.60009765625
     },
     {
       "expiry": "2027-10",
-      "price": 3733.300048828125
+      "price": 3730.5
     },
     {
       "expiry": "2027-12",
-      "price": 3747.199951171875
+      "price": 3761.800048828125
     },
     {
       "expiry": "2028-02",
-      "price": 3844.60009765625
+      "price": 3739.60009765625
     }
   ],
-  "m1_price": 3559.5,
-  "m2_price": 3588.5,
-  "m3_price": 3620.0,
-  "m6_price": 3733.300048828125,
-  "spread_m1m3": 1.6997,
-  "spread_m1m6": 4.8827,
-  "curve_slope_proxy": 0.9769,
+  "m1_price": 3568.199951171875,
+  "m2_price": 3596.89990234375,
+  "m3_price": 3627.89990234375,
+  "m6_price": 3730.5,
+  "spread_m1m3": 1.6731,
+  "spread_m1m6": 4.5485,
+  "curve_slope_proxy": 0.9687,
   "signal": "CONTANGO",
   "source": "yfinance futures"
 }
