@@ -1,0 +1,44 @@
+{
+  "contract": "palladium",
+  "name": "Palladium",
+  "date": "2026-11-27",
+  "curve_months": [
+    {
+      "expiry": "2026-12",
+      "price": 878.7999877929688
+    },
+    {
+      "expiry": "2027-03",
+      "price": 891.0
+    },
+    {
+      "expiry": "2027-06",
+      "price": 900.7000122070312
+    },
+    {
+      "expiry": "2027-09",
+      "price": 862.5999755859375
+    },
+    {
+      "expiry": "2027-12",
+      "price": 874.4000244140625
+    },
+    {
+      "expiry": "2028-03",
+      "price": 888.9000244140625
+    },
+    {
+      "expiry": "2028-06",
+      "price": 904.4000244140625
+    }
+  ],
+  "m1_price": 878.7999877929688,
+  "m2_price": 891.0,
+  "m3_price": 900.7000122070312,
+  "m6_price": 888.9000244140625,
+  "spread_m1m3": 2.492,
+  "spread_m1m6": 1.1493,
+  "curve_slope_proxy": 0.2407,
+  "signal": "CONTANGO",
+  "source": "yfinance futures"
+}
